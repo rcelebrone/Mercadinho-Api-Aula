@@ -13,7 +13,7 @@ public class LegumeController : ControllerBase
     public LegumeController()
     {
         var service = new LegumeService();
-        _legumes = service.Legumes; 
+        _legumes = service.Alimentos; 
     }
 
     public IEnumerable<Legume> Get(bool prontaPraConsumo)

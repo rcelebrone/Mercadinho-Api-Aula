@@ -8,21 +8,24 @@ namespace mercado_api.Controllers;
 [Route("[controller]")]
 public class FrutaController : ControllerBase
 {
-    private readonly IEnumerable<Fruta> _frutas;
+    private List<Fruta> _frutas;
+    private readonly FrutaService _frutaService;
 
-    public FrutaController()
-    {
-        var service = new FrutaService();
-        _frutas = service.Frutas;
+    public FrutaController(FrutaService frutaService) {
+        _frutaService = frutaService;
+        _frutas = _frutaService.Alimentos.ToList();
     }
 
-    public IEnumerable<Fruta> Get(bool prontaPraConsumo)
+    [HttpGet]
+    public IEnumerable<Fruta> Recuperar(bool prontaPraConsumo)
     {
         return prontaPraConsumo ? _frutas.Where(fruta => fruta.EstaProntoParaConsumo()) : _frutas;
     }
 
-    // public IEnumerable<string> Nomes()
-    // {
-    //     return _frutas.Select(f => f.Nome);
-    // }
+    [HttpPost]
+    public IEnumerable<Fruta> Gravar([FromBody] Fruta fruta) {
+        _frutas.Add(fruta);
+
+        return _frutas;
+    }
 }

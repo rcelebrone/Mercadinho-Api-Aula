@@ -1,12 +1,14 @@
 using mercado_api.Models;
 using mercado_api.Enums;
+using mercado_api.Services.Interfaces;
+using mercado_api.Models.Interfaces;
 
 namespace mercado_api.Services;
 
-public class FrutaService {
-
-    public IEnumerable<Fruta> Frutas { get; set; }
-
+public class FrutaService : IAlimentoService<Fruta>
+{
+    public IEnumerable<Fruta> Alimentos { get; set; }
+    
     public FrutaService()
     {
         var frutas = new List<Fruta>();
@@ -18,6 +20,6 @@ public class FrutaService {
         frutas.Add(new Fruta("Abacaxi", 0.5));
         frutas.Add(new Fruta("Pera", 0.4));
 
-        this.Frutas = frutas;
+        this.Alimentos = frutas;
     }
 }
